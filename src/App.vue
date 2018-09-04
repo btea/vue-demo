@@ -1,12 +1,15 @@
 <template>
     <div class="container">
         <div class="app">this is a app</div>
+        <e-line></e-line>
         <br>
         <textarea @input = "changeHeight" ref="text"></textarea>
     </div>
 </template>
 
 <script>
+import line from './echart/line';
+
 export default {
     data: function(){
         return {
@@ -39,6 +42,9 @@ export default {
             console.log(target);
             console.log(target.style.height);
         }
+    },
+    components: {
+        'e-line': line
     }
 }
 </script>
