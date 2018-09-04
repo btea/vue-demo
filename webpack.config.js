@@ -26,18 +26,18 @@ module.exports = {
             {
                 test: /.html$/,
                 use: {
-                    loader: 'html-loaer',
+                    loader: 'html-loader',
                     options: {minimize: true}
                 }
             }
         ]
     },
     resolve: {
-        extensions: ['.js','.jsx','.json']
+        extensions: ['.js','.json','.vue']
     },
     plugins: [
         new HtmlVwebpackPlugin({
-            template: './inedx.html',
+            template: './index.html',
             filename: './index.html'
         }),
         new VueLoaderPlugin()
