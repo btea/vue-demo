@@ -20,7 +20,7 @@ export default {
     data: function(){
         return {
             title: 'echart图表',
-            legend: ['数量'],
+            legend: ['数量','人数'],
             xAxisData: ["番剧","国创","音乐","电影","直播","绘画"],
             type: 'line',
             fanju: 5,
@@ -50,8 +50,19 @@ export default {
                 series: [
                     {
                         name: '数量',
-                        type: this.type,
-                        data: [this.fanju, this.guochuang, this.yinyue, this.dainying, this.zhibo, this.huihua]
+                        type: 'bar',
+                        data: [this.fanju, this.guochuang, this.yinyue, this.dainying, this.zhibo, this.huihua],
+                        itemStyle: {
+                            color: '#66ccff'
+                        }
+                    },
+                    {
+                        name: '人数',
+                        type: 'bar',
+                        data: [20,50,70,78,12,13],
+                        itemStyle: {
+                            color: 'yellow'
+                        }
                     }
                 ]
             };
