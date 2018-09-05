@@ -20,8 +20,6 @@ export default {
     },
     mounted: function(){
         var [a,b] = [1,2];
-        console.log(a);
-        console.log(b);
         var c = () => {
             console.log('this is a arrow function');
         }
@@ -39,8 +37,6 @@ export default {
             this.len = text.length;
             scrollHeight = target.scrollHeight;
             target.style.height = scrollHeight + 2;
-            console.log(target);
-            console.log(target.style.height);
         }
     },
     components: {

@@ -10,12 +10,14 @@
             <li>直播：<input type="number" v-model="zhibo"></li>
             <li>绘画: <input type="number" v-model="huihua"></li>
         </ul>
+        <div class="arr" @click="arrChange">验证watch数组</div>
     </div>
 </template>
 
 <script>
 import echarts from 'echarts';
-
+import week from 'zzz';
+console.log(week());
 export default {
     data: function(){
         return {
@@ -28,7 +30,11 @@ export default {
             yinyue: 36,
             dainying: 10,
             zhibo: 10,
-            huihua: 20
+            huihua: 20,
+            arr: [1,2,3,[[10],4,5]],
+            obj: {
+                a: 1
+            }
         }
     },
     methods: {
@@ -39,12 +45,21 @@ export default {
                 title: {
                     text: this.title
                 },
-                tooltip: {},
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
                 legend: {
                     data: this.legend
                 },
                 xAxis: {
-                    data: this.xAxisData
+                    data: this.xAxisData,
+                    axisLabel: {
+                        margin: 20,
+                        align: 'center'
+                    }
                 },
                 yAxis: {},
                 series: [
@@ -67,21 +82,53 @@ export default {
                 ]
             };
             myChart.setOption(option);
+        },
+        arrChange(){
+            this.obj.a = 10;
+            this.arr[3][0].push(4);
         }
     },
     mounted: function(){
         this.render();
+        let str = 'from=en&to=zh&query=rails&transtype=realtime&simple_means_flag=3&sign=515528.212729&token=583e224a495ff615f66fc75fa232f71b';
+        str = str.split('&');
+        let obj = {};
+        str.forEach((item) => {
+            let arr = item.split('=');
+            obj[arr[0]] = arr[1];
+        })
+        // let opt = {
+        //     method: 'POST',
+        //     body: obj,
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-type': 'application/json'
+        //     }
+        // }
+        // fetch('/api',opt).then(response => {
+        //     return response.text();
+        // }).then(text => {
+        //     console.log(text);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
     },
     watch: {
-        title(to,from){
-            this.render();
-        },
+        title(to,from){this.render();},
         fanju(){this.render();},
         guochuang(){this.render();},
         yinyue(){this.render();},
         dainying(){this.render();},
         zhibo(){this.render();},
-        huihua(){this.render();}
+        huihua(){this.render();},
+        // watch能监听数组，也能监听多维数组
+        arr(to,from){
+            console.log(to);
+        },
+        // watch不能监听对象
+        obj(to,from){
+            console.log(to);
+        }
     }    
 }
 </script>

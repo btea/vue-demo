@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlVwebpackPlugin = require('html-webpack-plugin');
 var VueLoaderPlugin = require('vue-loader/lib/plugin');
+var webpackBar  = require('webpackbar');
 
 module.exports = {
     module: {
@@ -44,7 +45,8 @@ module.exports = {
             template: './index.html',
             filename: './index.html'
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpackBar()
 
     ]
 }
