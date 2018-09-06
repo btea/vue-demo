@@ -4,6 +4,23 @@
         <e-line></e-line>
         <br>
         <textarea @input = "changeHeight" ref="text"></textarea>
+
+
+        <div class="scroll">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+            Quos, at. Nobis possimus laboriosam totam, corrupti quasi voluptatem esse explicabo laborum voluptatum pariatur eveniet, 
+            quaerat aperiam culpa necessitatibus architecto, odio iure.
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 </template>
 
@@ -46,6 +63,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    ::-webkit-scrollbar{
+        width: 5px;
+        background: yellow;
+    }
+    ::-webkit-scrollbar-thumb{
+        background: gray;
+        height: 30px;
+    }
     .container{
         .app{
             color: #6cf;
@@ -65,6 +90,24 @@ export default {
             overflow: hidden;
             font-size: 25px;
             white-space: pre-wrap;
+        }
+        .scroll{
+            width: 200px;
+            height: 100px;
+            overflow: auto;
+            &:hover{
+                &::-webkit-scrollbar{
+                    width: 5px;
+                    background-color: #6cf; 
+                }
+                &::-webkit-scrollbar-thumb{
+                    width: 5px;
+                    height: 20px;
+                    border-radius: 5px;
+                    background: red;
+                }
+            }
+            
         }
     }
 </style>
