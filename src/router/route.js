@@ -1,16 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import home from '../home';
+
 import game from '../game/clerance';
 import app from '../App';
+import no from '../404';
 
 Vue.use(VueRouter);
 const routes = [
-    {
-        path: '/home',
-        component: home
-    },
     {
         path: '/app',
         component: app
@@ -20,8 +17,8 @@ const routes = [
         component: game
     },
     {
-        path: '/',
-        redirect: '/app'
+        path: '*',
+        component: no
     }
 ];
 
