@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var HtmlVwebpackPlugin = require('html-webpack-plugin');
 var VueLoaderPlugin = require('vue-loader/lib/plugin');
 var webpackBar  = require('webpackbar');
+var proxy = require('http-proxy-middleware');
 
 module.exports = {
     module: {
@@ -48,5 +49,14 @@ module.exports = {
         new VueLoaderPlugin(),
         new webpackBar()
 
-    ]
+    ],
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'localhost:3000/',
+                changeOrigin: true,
+                pathRewrite: { "^/api/v1":"/" }
+            }
+        }
+    }
 }

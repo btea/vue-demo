@@ -1,7 +1,9 @@
 <template>
-    <div class="container">
-        <!-- 事件绑定既要传参又要阻止默认事件 @contextmenu="mark(index, $event)" 也可以采用如下写法；同时绑定多个事件时，可以使用对象语法v-on{event: fun, event: fun}-->
-        <div v-for="(cell,index) in gridNum" :key="index" :class="{goal: position.includes(index)}" @click="around(index,'i')" @contextmenu.prevent="mark(index)"></div>
+    <div>
+        <div class="container">
+            <!-- 事件绑定既要传参又要阻止默认事件 @contextmenu="mark(index, $event)" 也可以采用如下写法；同时绑定多个事件时，可以使用对象语法v-on{event: fun, event: fun}-->
+            <div v-for="(cell,index) in gridNum" :key="index" :class="{goal: position.includes(index),blue: clickList[index].clicked, mark: clickList[index].mark}" @click="around(index,'i')" @contextmenu.prevent="mark(index)"></div>
+        </div>
     </div>
 </template>
 
@@ -21,7 +23,7 @@ export default {
             num: 10, // 雷的个数
             gridNum: cells,// 总共格子数
             position: $arr, // 埋雷的位置
-            total: 0, // 每点击一次周围辐射点击的次数总和
+            total: 0, // 每点击一次周围辐射的元素的总和（即模拟点击的元素个数）
             clickedTotal: 0, // 已经被点击的方格的总和
             areaNum: 10, // 每次点击最多辐射周围的方格数
             clickList: (function(arr){
@@ -34,10 +36,12 @@ export default {
     },
     mounted: function(){
         this.doc = document.getElementsByClassName('container')[0].childNodes;
+        console.log('sweeping');
+        console.log(this.$store.state);
     },
     computed: {
-        color(){
-
+        count(){
+            return this.$store.state.count;
         }
     },
     methods: {
@@ -49,7 +53,7 @@ export default {
                 return;
             }
             this.clickList[i].mark = true;
-            this.doc[i].style.background = 'red';
+            // this.doc[i].style.background = 'red';
             this.isWin();
         },
         random: function(max, min){
@@ -64,7 +68,7 @@ export default {
             if(isClick) return;
             // ele有值表明是鼠标点击，而不是点击元素辐射周围产生的结果
             if(ele){
-                this.total = 0;
+                this.total = 0; 
                 this.areaNum = this.random(15,0);
             }
             this.eightValidate(i);
@@ -88,7 +92,7 @@ export default {
                 alert('you are win!')
             }
         },
-        eightValidate: function(index, isRan){
+        eightValidate: function(index){
             /**
              * filter {}
              * index => 点击的元素
@@ -97,7 +101,7 @@ export default {
             */
             var filter = this.areaGrid(index);
             if(!filter){return;}
-            this.randomSwitch(filter.index, filter['filter_arr'], filter['_arr'], isRan);
+            this.randomSwitch(filter.index, filter['filter_arr'], filter['_arr']);
         },
         // 获取点击元素周围的元素
         areaGrid: function(index){
@@ -107,7 +111,7 @@ export default {
                     return ;
                 }
             };
-            this.doc[index].style.background = '#6cf';
+            // this.doc[index].style.background = '#6cf';
             var arr,self = this, filter_arr;
             if(index < 10){
                 // 点击元素紧靠顶部 
@@ -159,9 +163,8 @@ export default {
             return {index, filter_arr, _arr};
         },
         // 点击一个之后其周围的方格随机显示/隐藏
-        randomSwitch: function(i, arr, _arr, isRan){
+        randomSwitch: function(i, arr, _arr){
             /**
-             * @param isRan 判断函数执行到这一步是点击执行还是点击之后辐射周围产生的效应(添加这一步之后,辐射永远只能是紧靠着元素四周的方格)
              * @param i 被点击的元素
              * @param arr 剔除被点击元素周围已点击元素之后剩余
              * @param _arr 剔除arr中埋雷的位置之后剩余的个数
@@ -187,6 +190,7 @@ export default {
                     filter = this.areaGrid(a);
                     if(filter){
                         _self.around(filter.index);
+                        // _self.around(a);
                     }
                 })
             }else{
@@ -215,9 +219,15 @@ export default {
             line-height: 40px;
             vertical-align: middle;
             cursor: pointer;
-            box-shadow: 0 0 20px red inset;
-            &.goal{
-                color: red;
+            // box-shadow: 0 0 20px red inset;
+            // &.goal{
+            //     color: red;
+            // }
+            &.blue{
+                background: #6cf;
+            }
+            &.mark{
+                background: red;
             }
         }
     }
