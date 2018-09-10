@@ -48,7 +48,7 @@ export default {
             this.$store.dispatch('incrementAsync1')
         },
         re(){
-            fetch('api/v1/search?keywords=大鱼').then(
+            fetch('api/search?keywords=大鱼').then(
                 res => res.json()
             ).then(con => {
                 console.log(con);
