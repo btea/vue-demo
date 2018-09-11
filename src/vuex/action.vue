@@ -3,6 +3,7 @@
         <div class="num">{{count}}</div>
         <button @click="add">+</button>  <button @click="reduce">-</button>
         <button ref="re" @click="re">request</button>
+        <div>songCount: {{songCount}}</div>
     </div>
 </template>
 
@@ -38,6 +39,9 @@ export default {
     computed: {
         count(){
             return this.$store.state.count
+        },
+        songCount(){
+            return this.$store.state.songCount
         }
     },
     methods: {
@@ -48,11 +52,12 @@ export default {
             this.$store.dispatch('incrementAsync1')
         },
         re(){
-            fetch('api/v1/search?keywords=大鱼').then(
-                res => res.json()
-            ).then(con => {
-                console.log(con);
-            })
+            this.$store.dispatch('search')
+            // fetch('api/search?keywords=名侦探柯南').then(
+            //     res => res.json()
+            // ).then(con => {
+            //     console.log(con);
+            // })
         }
     }
 }

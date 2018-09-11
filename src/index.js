@@ -8,7 +8,9 @@ import router from './router/route'
 Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
-        count: 0
+        count: 0,
+        songCount: 0,
+        songs: []
     },
     // mutation必须是同步函数
     mutations: {
@@ -17,9 +19,36 @@ const store = new Vuex.Store({
         },
         reduce(state){
             state.count--
-        }
+        },
+        count(state,con){
+            state.songCount = con.data.songCount;
+            state.songs = con.data.songs;
+        },
+        // count(state,con){
+        //     state.songCount = con.songCount;
+        //     state.songs = con.songs;
+        // }
     },
     actions: {
+        // search(context){
+        //     fetch('api/search?keywords=名侦探柯南').then(
+        //         res => res.json()
+        //     ).then(con => {
+        //         context.commit('count',con.result);
+        //         console.log(con);
+        //     })
+        // },
+        search({commit}){
+            fetch('api/search?keywords=名侦探柯南').then(
+                res => res.json()
+            ).then(con => {
+                // commit('count',con.result)
+                commit({
+                    type: 'count',
+                    data: con.result
+                })
+            })
+        },
         incrementAsync({state,commit,rootState}){
             console.log(state);
             console.log(rootState);

@@ -39,11 +39,6 @@ export default {
         console.log('sweeping');
         console.log(this.$store.state);
     },
-    computed: {
-        count(){
-            return this.$store.state.count;
-        }
-    },
     methods: {
         mark: function(i, e){ // 右键标记，用来标记雷的位置
             // e.preventDefault(); 采用传参$event时需要这一步操作
