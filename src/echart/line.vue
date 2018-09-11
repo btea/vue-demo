@@ -16,8 +16,6 @@
 
 <script>
 import echarts from 'echarts';
-import week from 'zzz';
-console.log(week());
 export default {
     data: function(){
         return {
