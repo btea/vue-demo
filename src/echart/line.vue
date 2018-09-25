@@ -16,6 +16,9 @@
 
 <script>
 import echarts from 'echarts';
+import zsay from '../globalVariable';
+
+
 export default {
     data: function(){
         return {
@@ -87,6 +90,9 @@ export default {
         }
     },
     mounted: function(){
+        console.log('this',this);
+        console.log(this.z);
+        console.log(zsay.say());
         this.render();
         let str = 'from=en&to=zh&query=rails&transtype=realtime&simple_means_flag=3&sign=515528.212729&token=583e224a495ff615f66fc75fa232f71b';
         str = str.split('&');

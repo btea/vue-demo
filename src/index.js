@@ -63,6 +63,11 @@ const store = new Vuex.Store({
         }
     }
 })
+//1 添加全局变量的方法，在Vue的原型对象上添加
+Vue.prototype.z = 'zeng';
+Vue.prototype.y = 'you';
+
+//2 可以写一个单独保存变量的vue文件
 
 new Vue({
     el: '#app',
