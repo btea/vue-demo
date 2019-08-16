@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import 'es6-promise/auto'
 import Vuex from 'vuex'
+import EvaIcons from 'vue-eva-icons'
 
 import Home from './home'
 import router from './router/route'
 
+Vue.use(EvaIcons);
 Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {

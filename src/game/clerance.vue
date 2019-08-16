@@ -15,6 +15,7 @@ arr.forEach((a,i) => {
 for(var i = 0; i < 10; i++){
     var index = Math.floor(Math.random()*(arr.length + 1) + 0);
     $arr = $arr.concat(arr.splice(index,1));
+    console.log($arr);
 }
 cells = new Array(100).fill(null);
 export default {

@@ -11,16 +11,8 @@
             Quos, at. Nobis possimus laboriosam totam, corrupti quasi voluptatem esse explicabo laborum voluptatum pariatur eveniet, 
             quaerat aperiam culpa necessitatibus architecto, odio iure.
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <eva-icon name="github" animation="pulse" fill="limegreen"></eva-icon>
+        <eva-icon name="charging" animation="shake" fill="aqua"></eva-icon>
     </div>
 </template>
 
@@ -47,13 +39,23 @@ export default {
             var target = e.target,
                 text = target.value,
                 scrollHeight;
-                console.log(target.style);
+            var h;
             if(text.length < this.len){
-                target.style.height = 150;
+                target.style.height = `${this.height}px`;
+                scrollHeight = target.scrollHeight;
+                if(scrollHeight > this.height){
+                    target.style.height = `${scrollHeight}px`;
+                }
+                // h = 150;
+            }else{
+                scrollHeight = target.scrollHeight;
+                h = scrollHeight + 2;
+                target.style.height = `${h}px`;
             }    
             this.len = text.length;
-            scrollHeight = target.scrollHeight;
-            target.style.height = scrollHeight + 2;
+            // scrollHeight = target.scrollHeight;
+            // target.style.height = scrollHeight + 2;
+            // target.style.height = `${h}px`;
         }
     },
     components: {
