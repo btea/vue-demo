@@ -5,8 +5,9 @@ import VueRouter from 'vue-router';
 import game from '../game/clerance';
 import app from '../App';
 import no from '../404';
-import vuexs from '../vuex/vuex'
-import action from '../vuex/action'
+import vuexs from '../vuex/vuex';
+import action from '../vuex/action';
+import map from '../map/map'
 
 Vue.use(VueRouter);
 const routes = [
@@ -27,6 +28,10 @@ const routes = [
                 component: action
             }
         ]
+    },
+    {
+        path: '/map',
+        component: map
     },
     {
         path: '*',

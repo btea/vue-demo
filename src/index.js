@@ -8,6 +8,21 @@ import router from './router/route'
 
 Vue.use(EvaIcons);
 Vue.use(Vuex);
+
+Vue.directive('demo', {
+    bind: function (el, binding, vnode) {
+      var s = JSON.stringify;
+      console.log(vnode);
+      el.innerHTML =
+        'name: '       + s(binding.name) + '<br>' +
+        'value: '      + s(binding.value) + '<br>' +
+        'expression: ' + s(binding.expression) + '<br>' +
+        'argument: '   + s(binding.arg) + '<br>' +
+        'modifiers: '  + s(binding.modifiers) + '<br>' +
+        'vnode keys: ' + Object.keys(vnode).join(', ')
+    }
+  })
+
 const store = new Vuex.Store({
     state: {
         count: 0,

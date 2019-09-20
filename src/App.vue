@@ -4,7 +4,7 @@
         <e-line></e-line>
         <br>
         <textarea @input = "changeHeight" ref="text"></textarea>
-
+        <div class="box" v-demo></div>
 
         <div class="scroll">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. 

@@ -4,6 +4,7 @@
             <router-link to='/app'>app</router-link>
             <router-link to="/game">game</router-link>
             <router-link to="/vuexs">vuexs</router-link>
+            <router-link to="/map">map</router-link>
         </div>
         <router-view></router-view>
     </section>

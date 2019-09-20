@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlVwebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var VueLoaderPlugin = require('vue-loader/lib/plugin');
 var webpackBar  = require('webpackbar');
 var proxy = require('http-proxy-middleware');
@@ -47,8 +48,8 @@ module.exports = {
             filename: './index.html'
         }),
         new VueLoaderPlugin(),
-        new webpackBar()
-
+        new webpackBar(),
+        new ExtractTextPlugin('../css/[name].min.js')
     ],
     devServer: {
         proxy: {
