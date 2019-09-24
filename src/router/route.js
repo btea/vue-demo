@@ -12,6 +12,10 @@ import map from '../map/map'
 Vue.use(VueRouter);
 const routes = [
     {
+        path: '/',
+        redirect: '/app'
+    },
+    {
         path: '/app',
         component: app
     },
@@ -42,6 +46,4 @@ const routes = [
 var router = new VueRouter({
     routes
 });
-
-console.log(router);
 export default router;

@@ -90,7 +90,7 @@ export default {
                     //这个mapData里包含每个区域的code、名称、对应的等级，实现第三步功能时能用上
                     this.mapData.push({
                         name: name,
-                        value: Math.random() * 100,
+                        value: [subList[i].center.lng, subList[i].center.lat, Math.random() * 100],
                         cityCode: cityCode,
                         level: curlevel
                     });
@@ -123,6 +123,14 @@ export default {
                 this.$echarts.registerMap(mapName, data);//把geoJson数据注入echarts
                 //配置echarts的option
                 var option = {
+                    tooltip: {
+                        formatter: function(v){
+                            let s = '';
+                            s += v.marker + v.name + ':';
+                            s += v.value;
+                            return s;
+                        },
+                    },
                     visualMap: {
                         type: 'piecewise',
                         pieces: [
@@ -171,9 +179,27 @@ export default {
                                 }
                             }
                         },
+                        label: {
+                            show: true
+                        },
                         data: this.mapData,//这个data里包含每个区域的code、名称、对应的等级，实现第三步功能时能用上
-                    }]
+                    },
+                        {
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            label: {
+                                show: true,
+                                formatter: function(v){
+                                    console.log(v);
+                                    return 100;
+                                }
+                            },
+                            symbol: 'circle',
+                            data: this.mapData
+                        }
+                    ]
                 };
+                console.log(option);
                 this.echartsMap.setOption(option);
 
                 // 给echarts图表绑定点击事件，实现下钻功能
@@ -230,6 +256,9 @@ export default {
         .map-box,.chart-box{
             flex: 1;
             height: 100%;
+        }
+        .chart-box{
+            background: #66ccff75;
         }
         .float-box{
             position: absolute;
