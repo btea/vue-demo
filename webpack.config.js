@@ -36,6 +36,13 @@ module.exports = {
                     loader: 'html-loader',
                     options: {minimize: true}
                 }
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'fonts/[hash:8].[ext]'
+                }
             }
         ]
     },

@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import 'es6-promise/auto'
 import Vuex from 'vuex'
@@ -5,7 +6,10 @@ import EvaIcons from 'vue-eva-icons'
 
 import Home from './home'
 import router from './router/route'
+import 'element-ui/lib/theme-chalk/index.css';
+import {Switch} from 'element-ui'
 
+Vue.use(Switch);
 Vue.use(EvaIcons);
 Vue.use(Vuex);
 

@@ -3,6 +3,23 @@
         <div class="float-box">
             <button @click="downloadJson('code')">下载geoJson数据</button>
             <!-- <select @change="switchArea(area)"><option :value="area" v-for="area in areaData">{{area}}</option></select> -->
+            <ul class="style">
+                <li 
+                    v-for="s in mapStyle" 
+                    :key="s.v" 
+                    :class="{active: s.v === styleV}"
+                    @click="mapStyleChange(s.v)"
+                >{{s.name}}</li>
+            </ul>
+            <div class="2d-3d">
+                3D<el-switch
+                    v-model="is3D"
+                    active-color="#66ccff"
+                    inactive-color="#909399"
+                    @change="mapModelSwitch"
+                    >
+                </el-switch>
+            </div>
         </div>
         <div class="map-box">
 
@@ -32,6 +49,14 @@ export default {
             citySelect: null,
             districtSelect: null,
             opts: {},
+            // 地图样式配置
+            mapStyle: [
+                {name: '标准', v: 'normal'},{name: '幻影黑', v: 'dark'},{name: '月光银', v: 'light'},{name: '远山黛', v: 'whitesmoke'},
+                {name: '草色青', v: 'fresh'},{name: '雅士灰', v: 'grey'},{name: '涂鸦', v: 'graffiti'},{name: '马卡龙', v: 'macaron'},
+                {name: '靛青蓝', v: 'blue'},{name: '极夜蓝', v: 'darkblue'},{name: '酱籽', v: 'wine'}
+            ],
+            styleV: 'normal',
+            is3D: false
         }
     },
     mounted(){
@@ -47,6 +72,7 @@ export default {
         },
         init(){
             this.renderMap();
+            this.areaStroke();
             this.opts = {
                 subdistrict: 1,   //返回下一级行政区
                 showbiz: false  //最后一级返回街道信息
@@ -59,8 +85,44 @@ export default {
                 }
             });
         },
+        mapModelSwitch(s){
+            this.is3D = s;
+            this.renderMap();
+        },
         renderMap(){
-            var map = new AMap.Map(document.getElementsByClassName('map-box')[0]);
+            var map = new AMap.Map(document.getElementsByClassName('map-box')[0],
+            this.is3D ?
+            {
+                pitch: 75, // 地图俯仰角度，有效范围 0度--83度
+                viewMode: '3D' // 地图模式
+            } : {}
+            );
+            this.map = map;
+        },
+        areaStroke(){
+            AMap.plugin('AMap.DistrictLayer', function(){
+                new AMap.DistrictLayer.Province({
+                    zIndex:12,
+                    adcode:['130000'],
+                    depth:2,
+                    styles:{
+                        'fill':function(properties){
+                            console.log(properties);
+                            console.log(getColorByAdcode);
+                            var adcode = properties.adcode;
+                            return getColorByAdcode(adcode);
+                        },
+                        'province-stroke':'cornflowerblue',
+                        'city-stroke': 'white',//中国地级市边界
+                        'county-stroke': 'rgba(255,255,255,0.5)'//中国区县边界  
+                    }
+                })
+            })
+            
+        },
+        mapStyleChange(v){
+            this.styleV = v;
+            this.map.setMapStyle(`amap://styles/${v}`);
         },
         getData(data, level, adcode) {//处理获取出来的边界数据
             var subList = data.districtList;
@@ -127,9 +189,16 @@ export default {
                         formatter: function(v){
                             let s = '';
                             s += v.marker + v.name + ':';
-                            s += v.value;
+                            s += Math.floor(v.data.value[2]);
                             return s;
                         },
+                    },
+                    geo: {
+                        map: this.cityName,
+                        label: {
+                            show: true
+                        },
+                        position: ['50%', '50%']
                     },
                     visualMap: {
                         type: 'piecewise',
@@ -147,6 +216,7 @@ export default {
                     series: [{
                         name: '数据名称',
                         type: 'map',
+                        map: this.cityName,
                         roam: false,
                         mapType: mapName,
                         selectedMode: 'single',
@@ -184,19 +254,19 @@ export default {
                         },
                         data: this.mapData,//这个data里包含每个区域的code、名称、对应的等级，实现第三步功能时能用上
                     },
-                        {
-                            type: 'scatter',
-                            coordinateSystem: 'geo',
-                            label: {
-                                show: true,
-                                formatter: function(v){
-                                    console.log(v);
-                                    return 100;
-                                }
-                            },
-                            symbol: 'circle',
-                            data: this.mapData
-                        }
+                    {
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        label: {
+                            show: true,
+                            color: 'aqua',
+                            formatter: function(v){
+                                return Math.floor(v.value[2]);
+                            }
+                        },
+                        symbol: 'circle',
+                        data: this.mapData
+                    }
                     ]
                 };
                 console.log(option);
@@ -266,6 +336,27 @@ export default {
             left: 20px;
             z-index: 10;
             background: #fff;
+            .style{
+                padding: 0;
+                margin: 0;
+                li{
+                    list-style: none;
+                    display: inline-block;
+                    height: 25px;
+                    line-height: 25px;
+                    cursor: pointer;
+                    font-size: 12px;
+                    margin: 5px 10px;
+                    padding: 0 5px;
+                    border-radius: 15px;
+                    &:hover{
+                        background: #99999985;
+                    }
+                    &.active{
+                        color: aqua;
+                    }
+                }
+            }
         }
     }
 </style>
