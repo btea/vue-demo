@@ -1,39 +1,39 @@
 {
-  "name": "vue-practice",
-  "version": "0.0.1",
-  "description": "vue pratice note",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "vite",
-    "build": "webpack --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/btea/vue-demo.git"
-  },
-  "author": "btea z",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/btea/vue-demo/issues"
-  },
-  "homepage": "https://github.com/btea/vue-demo#readme",
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^1.6.0",
-    "@vue/compiler-sfc": "^3.2.6",
-    "vite": "^2.5.2",
-    "vite-plugin-element-plus": "0.0.12"
-  },
-  "dependencies": {
-    "echarts": "^4.9.0",
-    "element-plus": "^1.1.0-beta.8",
-    "element-ui": "^2.15.5",
-    "es6-promise": "^4.2.8",
-    "express": "^4.17.1",
-    "file-loader": "^4.3.0",
-    "vue": "^3.2.6",
-    "vue-eva-icons": "^1.1.1",
-    "vue-router": "^3.5.2",
-    "vuex": "^3.6.2"
-  }
+	"name": "vue-practice",
+	"version": "0.0.1",
+	"description": "vue pratice note",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "vite",
+		"build": "vite build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/btea/vue-demo.git"
+	},
+	"author": "btea z",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/btea/vue-demo/issues"
+	},
+	"homepage": "https://github.com/btea/vue-demo#readme",
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^1.6.0",
+		"@vue/compiler-sfc": "^3.2.6",
+		"vite": "^2.5.2",
+		"vite-plugin-element-plus": "0.0.12"
+	},
+	"dependencies": {
+		"echarts": "^4.9.0",
+		"element-plus": "^1.1.0-beta.8",
+		"element-ui": "^2.15.5",
+		"es6-promise": "^4.2.8",
+		"express": "^4.17.1",
+		"file-loader": "^4.3.0",
+		"vue": "^3.2.6",
+		"vue-eva-icons": "^1.1.1",
+		"vue-router": "^3.5.2",
+		"vuex": "^3.6.2"
+	}
 }
