@@ -51,7 +51,7 @@
     "echarts": "^4.9.0",
     "element-ui": "^2.15.5",
     "es6-promise": "^4.2.8",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-loader": "^4.3.0",
     "vue": "^2.6.14",
     "vue-eva-icons": "^1.1.1",
